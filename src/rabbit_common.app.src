@@ -4,4 +4,5 @@
   {modules, []},
   {registered, []},
   {env, []},
+  {included_applications, [mochiweb]},%% Include the dep as we need mochijson2
   {applications, [kernel, stdlib]}]}.
