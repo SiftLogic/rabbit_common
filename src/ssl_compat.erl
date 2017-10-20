@@ -16,7 +16,7 @@
 
 -module(ssl_compat).
 
-%% We don't want warnings about the use of erlang:now/0 in
+%% We don't want warnings about the use of erlang:timestamp/0 in
 %% this module.
 -compile(nowarn_deprecated_function).
 
@@ -44,7 +44,7 @@ connection_information_post_18(SslSocket) ->
     ssl:connection_information(SslSocket).
 
 connection_information_pre_18(SslSocket) ->
-    case ssl:connection_info(SslSocket) of
+    case ssl:connection_information(SslSocket) of
         {ok, {ProtocolVersion, CipherSuite}} ->
             {ok, [{protocol, ProtocolVersion},
                   {cipher_suite, CipherSuite}]};
@@ -64,7 +64,7 @@ connection_information_pre_18(SslSocket, Items) ->
     WantCipherSuite = lists:member(cipher_suite, Items),
     if
         WantProtocolVersion orelse WantCipherSuite ->
-            case ssl:connection_info(SslSocket) of
+            case ssl:connection_information(SslSocket) of
                 {ok, {ProtocolVersion, CipherSuite}} ->
                     filter_information_items(ProtocolVersion,
                                              CipherSuite,
