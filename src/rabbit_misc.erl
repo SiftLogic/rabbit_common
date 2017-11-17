@@ -1038,7 +1038,7 @@ sequence_error([_ | Rest])               -> sequence_error(Rest).
 
 json_encode(Term) ->
     try
-        {ok, mochijson2:encode(Term)}
+        {ok, rc_mochijson2:encode(Term)}
     catch
         exit:{json_encode, E} ->
             {error, E}
@@ -1046,7 +1046,7 @@ json_encode(Term) ->
 
 json_decode(Term) ->
     try
-        {ok, mochijson2:decode(Term)}
+        {ok, rc_mochijson2:decode(Term)}
     catch
         %% Sadly `mochijson2:decode/1' does not offer a nice way to catch
         %% decoding errors...
@@ -1166,12 +1166,12 @@ moving_average(Time,  HalfLife,  Next, Current) ->
 random(N) ->
     case get(random_seed) of
         undefined ->
-            random:seed(erlang:phash2([node()]),
+            rand:seed(erlang:phash2([node()]),
                         time_compat:monotonic_time(),
                         time_compat:unique_integer());
         _ -> ok
     end,
-    random:uniform(N).
+    rand:uniform(N).
 
 %% Moved from rabbit/src/rabbit_cli.erl
 %% If the server we are talking to has non-standard net_ticktime, and
