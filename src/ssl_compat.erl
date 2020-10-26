@@ -18,7 +18,8 @@
 
 %% We don't want warnings about the use of erlang:now/0 in
 %% this module.
--compile(nowarn_deprecated_function).
+-compile([{nowarn_deprecated_function, [{ssl, connection_info, 1}]},
+          {nowarn_removed, [{ssl, connection_info, 1}]}]).
 
 -export([connection_information/1,
          connection_information/2]).

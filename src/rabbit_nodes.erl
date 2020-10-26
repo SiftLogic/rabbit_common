@@ -203,14 +203,7 @@ set_cluster_name(Name) ->
     rabbit_runtime_parameters:set_global(cluster_name, Name).
 
 random(N) ->
-    case get(random_seed) of
-        undefined ->
-            random:seed(erlang:phash2([node()]),
-                        time_compat:monotonic_time(),
-                        time_compat:unique_integer());
-        _ -> ok
-    end,
-    random:uniform(N).
+    rand:uniform(N).
 
 ensure_epmd() ->
     {ok, Prog} = init:get_argument(progname),
